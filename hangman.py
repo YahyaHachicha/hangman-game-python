@@ -21,6 +21,7 @@ hangman = """
 """
 print(hangman)
 
+# print hangman function
 def print_hangman(errors):
     hangman = """
 |-----------------|
@@ -36,11 +37,18 @@ def print_hangman(errors):
 |                 |
 |-----------------|
 """
-    hangman= hangman.replace("1"," ");
-    hangman= hangman.replace("2"," ");
-    hangman= hangman.replace("3"," ");
-    hangman= hangman.replace("4"," ");
-    hangman= hangman.replace("5"," ");
-    hangman= hangman.replace("6"," ");
+    if(errors > 6):
+        print('Game Over!');
+    elif (errors < 6):
+        for i in range(errors + 1, 7):
+            hangman= hangman.replace(str(i), " ");
+    hangman = hangman.replace("1", "O");
+    hangman = hangman.replace("2", "/");
+    hangman = hangman.replace("3", "|");
+    hangman = hangman.replace("4", "\\");
+    hangman = hangman.replace("5", "/");
+    hangman = hangman.replace("6", "\\");
     print(hangman);
-print_hangman(3);
+# end of function
+
+print_hangman(4);
