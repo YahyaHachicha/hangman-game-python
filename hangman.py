@@ -1,26 +1,5 @@
 from random import randint;
 
-words = ['automn', 'spring', 'winter', 'summer'];
-index = randint(0, len(words)-1);
-print (index);
-word = words[index];
-print(word);
-hangman = """
-|-----------------|
-|                 |
-|  |----|         |
-|  |    |         |
-|  |    1         |
-|  |   234        |
-|  |    3         |
-|  |   5 6        |
-|  |              |
-|  |--------      |
-|                 |
-|-----------------|
-"""
-print(hangman)
-
 # print hangman function
 def print_hangman(errors):
     hangman = """
@@ -51,4 +30,44 @@ def print_hangman(errors):
     print(hangman);
 # end of function
 
-print_hangman(4);
+# check if the character exists in the word
+def check_if_error(char, word):
+    return char in word
+# end of function
+
+# print secret word
+def get_secret(word, c, s): 
+    secret = s;
+    for i in range(0, len(word)):
+        if(word[i] == c):
+            secret = secret[0:i*2] + c + secret[i*2+1:]
+    return secret;
+# end of function
+
+
+words = ['automn', 'spring', 'winter', 'summer'];
+index = randint(0, len(words)-1);
+word = words[index];
+count_errors = 0;
+game_over = False;
+
+secret = "";
+for _ in range(0, len(word)):
+    secret += "_ ";
+
+while(not game_over):
+    char = input("Insert your character:");
+    check = check_if_error(char, word)
+    if(check):
+        secret = get_secret(word, char, secret);
+        if "_" not in secret:
+            game_over = True;
+            print("Congratulations. You found the secret word!")
+        else:
+            print(secret);
+    else: 
+        count_errors += 1;
+        print_hangman(count_errors);
+        if(count_errors >= 6):
+            print("Game Over. You lost!");
+            game_over = True
